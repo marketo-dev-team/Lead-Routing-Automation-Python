@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Routing Automation</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 15px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            font-size: 16px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #0684bc;
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            font-size: 16px;
+        }
+        .button:hover {
+            background-color: #002855;
+        }
+        .button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        #result {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #e7f3fe;
+            border-left: 6px solid #0684bc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .step {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #download-step {
+            display: flex;
+        }
+        #download-csv {
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lead Routing Sheet Generator</h1>
+        
+        <div class="step">
+            <label for="sheet-id">Google Sheet ID:</label>
+            <input type="text" id="sheet-id" placeholder="Enter the Google Sheet ID">
+            <button id="remove-duplicates" class="button">Remove Duplicates</button>
+        </div>
+        
+        <div id="result" style="display: none;"></div>
+        
+        <div class="step" id="additional-fields" style="display: none;">
+            <h2>Round Robin Pool Information</h2>
+            <label for="territory">Enter Territory:</label>
+            <input type="text" id="territory" placeholder="Enter Territory">
+            
+            <label for="round-robin-name">Round Robin Name:</label>
+            <input type="text" id="round-robin-name" placeholder="Enter Round Robin Name">
+            
+            <label for="custom-field">Custom Field:</label>
+            <input type="text" id="custom-field" placeholder="Enter Custom Field">
+        </div>
+        
+        <div class="step" id="download-step" style="display: none;">
+            <button id="download-csv" class="button">Download CSV</button>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            let removeDuplicatesBtn = $('#remove-duplicates');
+            let downloadCsvBtn = $('#download-csv');
+            let result = $('#result');
+            let sheetId = $('#sheet-id');
+            let additionalFields = $('#additional-fields');
+            let downloadStep = $('#download-step');
+
+            removeDuplicatesBtn.on('click', removeDuplicates);
+            downloadCsvBtn.on('click', downloadCsv);
+
+            function removeDuplicates() {
+                let id = sheetId.val();
+
+                if (!id) {
+                    alert('Please provide a Google Sheet ID');
+                    return;
+                }
+
+                removeDuplicatesBtn.prop('disabled', true).text('Processing...');
+
+                $.ajax({
+                    url: '/remove-duplicates',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ spreadsheet_id: id }),
+                    success: function(data) {
+                        if (data.error) {
+                            result.html(`<p>Error: ${data.error}</p>`).show();
+                        } else {
+                            result.html(`
+                                <p>Initial row count: ${data.initial_row_count}</p>
+                                <p>Final row count: ${data.final_row_count}</p>
+                                <p>Duplicates removed: ${data.duplicates_removed}</p>
+                            `).show();
+                            
+                            additionalFields.show();
+                            downloadStep.show();
+                        }
+                    },
+                    error: function() {
+                        result.html('<p>An error occurred. Please try again.</p>').show();
+                    },
+                    complete: function() {
+                        removeDuplicatesBtn.prop('disabled', false).text('Remove Duplicates');
+                    }
+                });
+            }
+
+            function downloadCsv() {
+                let id = sheetId.val();
+                let territory = $('#territory').val();
+                let roundRobinName = $('#round-robin-name').val();
+                let customField = $('#custom-field').val();
+
+                if (!id) {
+                    alert('Please provide a Google Sheet ID');
+                    return;
+                }
+
+                $.ajax({
+                    url: '/download-csv',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        spreadsheet_id: id,
+                        territory: territory,
+                        round_robin_name: roundRobinName,
+                        custom_field: customField
+                    }),
+                    xhrFields: {
+                        responseType: 'blob'
+                    },
+                    success: function(data) {
+                        var a = document.createElement('a');
+                        var url = window.URL.createObjectURL(data);
+                        a.href = url;
+                        a.download = 'cleaned_data.csv';
+                        document.body.append(a);
+                        a.click();
+                        a.remove();
+                        window.URL.revokeObjectURL(url);
+                    },
+                    error: function() {
+                        alert('An error occurred while downloading the CSV. Please try again.');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "lead-routing-automation",
+  "private_key_id": "08f6c51bf9a8e12e388c0ed3249f854074d59b5e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDaeyBHuXULF8Yf\nTj6iq29ek8eA8WiKNwKi+vfZVQVNKKXymsk4G1Bs1wX2LYMsTyTvDv9aQNdw0TC7\ncP2RwRfqraNDMkHvyEpyaiUsWI12VcFI2P/6ml0+FgoHOPJi4a48tv4A0XkR5prG\nFNceHvTE0i2KI52pKqpy63UEzOfSkKOE60QHFkpHVjXGBXkeKPIrz8Fq+//B4XQD\ndPWd1OXeArWQ7/Y8eiksfAJWsoE4u6DXG1MxaaZhUKVGQl61UvP1ezpGjWauhjOI\nyC422sYxMLeKHcVjt4cue1Xced7djaqM2IvHUksruO0VPL9U1LQnX0L8kvOGNgso\nEcfsK3QRAgMBAAECggEAEn7R4MCGdAXzM7s/+i1hJDSGcxf8rZaylnGAgdl8tWd3\nhO4tkp5dVJlvW8PGkv2wNryiSVWr51UONw/9p1UdXTSN2aZrho0CIGVz+CkW8KmZ\nzzzvjpt6wULEXpAnlM9eHK2xGwigoy9Ocu5Yt6gPOIpCaKtTMXr3Kvtb0Kg4B88m\nvLLknL2VVILdXMokFS7WEHxsX06rr1IRZNMmwV9i0nafQJVPgSQpPFu08vV3+cSH\n3lrp7UywIy13T6Yu2vlMpGRfryi4NoKTqthUob99eoMq1K6CU9gSfOoy6M/G7CwX\ndiRUhmipLnFShi0QFWonb3kvaYrW7bUvWa7NHf308QKBgQDwLkEXY5F8dgCmdg3N\nRzwwYwu1kzY8raMeRX1nhzXwu61BqO4Z4+puh6wYQvOw+1/m3YLFLFqDzcQG0Zd+\nODFW7GupH0EhsD4B6I1/TuFhCSYMwB+GjXRhgSZuYRz/R/rQkp6dYwtOIDJPSEZL\nK3GfA6nFtiu3cE13ioj6PF09AwKBgQDo3vzNO4EEWqVkggJWC5PUFoo8ZcB0uqVK\n50knoJTMEvKgyzAvGu4eqEaIgClcLgP6z5Hlrl/pLlSUQLvtK7p0uIp830vt6Uv4\nKKCXL2XGJftJKG6CpohA8rLb5ko+dMP22h7cXKe4+syGMt1usd3Id6j9bQ8sL+2C\n3yRzw5jsWwKBgQDUvvPzRsQA7fmHeXyiP54l8iXWEW7yco/RaZY6VP9HnMZMKdm2\nXzcx7sVWvD9lnlSFh+KkyrPmmiYwMAkzyYySxVpb9Q5ZS+axBBAKG5HxxQvKMYf7\nRGM5Vw/2p9jqmxSlGaqcGLZT3psRtSBmxzWet7zzH3k7xKMp5zGMDlo8hwKBgFK/\nqiVjl5zseQkWCa55vrYGrGh538Ga8VGEjkI+laFOuljY2u5iK2tJcIbgw9G1qERf\nrgBnzj0V8Ygc2KqWd1MyoENvNZP86rnr9eTDOu8GYBzG+T4D3zb1BwmM86Tt6RS2\nvXCgnBjnRfYJ7RWArsalfq9PKa0R+tweXt2kC5sxAoGBANXZ6yah6E2fWliWKKd8\nq1DtU6pb5Y5kIdyN2f4FU7ZrfZsnEAlIV9IEC6WBPpG/DJVkgHQeTiKm3kxNWXH6\ny3G7xXiTPS/+yv9cD93AiieYUdwAluH5AwfEHJh/03dF7Qdu7zfjyHl69Blfp+cw\n5kNfcRYrRNqTt2LBjc/PJYMW\n-----END PRIVATE KEY-----\n",
+  "client_email": "lead-routing-automation@lead-routing-automation.iam.gserviceaccount.com",
+  "client_id": "114921784602291811879",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/lead-routing-automation%40lead-routing-automation.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
